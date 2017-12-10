@@ -32,7 +32,7 @@ def train_cost_sensitive(config, folds):
         iterators[fold] = QuestionIterator(all_guesses[fold], option2id,
             batch_size=cfg.batch_size, make_vector=make_vector)
 
-    model = RNN(eval_iter.n_input, cfg.n_hidden, N_GUESSERS + 1)
+    model = RNN(iterators[c.SYSTEM_TEST_FOLD].n_input, cfg.n_hidden, N_GUESSERS + 1)
 
     gpu = conf['buzzer']['gpu']
     if gpu != -1 and chainer.cuda.available:
@@ -54,7 +54,8 @@ def train_cost_sensitive(config, folds):
         log.info('Buzzes saved to {0}.'.format(buzzes_dir))
 
         if fold == 'expo':
-            buzzer2vwexpo(all_guesses['expo'], buzzes, fold)
+            ##buzzer2vwexpo(all_guesses['expo'], buzzes, fold)
+            pass 
 
 def parse_args():
     parser = argparse.ArgumentParser()

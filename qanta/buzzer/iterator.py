@@ -91,8 +91,9 @@ class QuestionIterator(object):
         self.create_batches()
         # log.info('Finish creating batches {}'.format(self.n_input))
 
-    def _process_example(self, qid, answer, dicts, results):
-        
+    def _process_example(self, input_tuple):
+        r_tuple, queue = input_tuple
+        qid, answer, dicts, results = r_tuple
         results = np.asarray(results, dtype=np.int32)
         length, n_guessers = results.shape
 

@@ -71,7 +71,7 @@ def stupid_buzzer(iterator) -> Dict[int, int]:
     return buzz_dict
 
 def _process_question(option2id: Dict[str, int], 
-        all_questions: Dict[int, Question], qnum, question) -> \
+        all_questions: Dict[int, Question], input_tuple) -> \
             Tuple[int, int, List[List[Dict[str, int]]], List[List[int]]]:
     '''Process one question.
     return:
@@ -80,6 +80,8 @@ def _process_question(option2id: Dict[str, int],
         guess_dicts: a sequence of guess dictionaries for each guesser
         results: sequence of 0 and 1 for each guesser
     '''
+    q_tuple, queue = input_tuple
+    qnum, question = q_tuple
     qnum = int(qnum)
     try:
         answer = all_questions[qnum].page
@@ -120,7 +122,7 @@ def load_quizbowl(folds=c.BUZZER_INPUT_FOLDS) \
     # merge_dfs()
     log.info('Loading data')
     question_db = QuestionDatabase()
-    quizbowl_db = QuizBowlDataset(bc.MIN_ANSWERS, guesser_train=True, buzzer_train=True)
+    quizbowl_db = QuizBowlDataset(guesser_train=True, buzzer_train=True)
     all_questions = question_db.all_questions()
     if not os.path.isfile(bc.OPTIONS_DIR):
         log.info('Loading the set of options')

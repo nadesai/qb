@@ -228,7 +228,10 @@ class AbstractGuesser(metaclass=ABCMeta):
     def save_guesses(guess_df: pd.DataFrame, directory: str, folds: List[str]):
         for fold in folds:
             log.info('Saving fold {}'.format(fold))
-            fold_df = guess_df[guess_df.fold == fold]
+            log.info('df describe {}'.format(guess_df.describe()))
+            notnan_df = guess_df[guess_df.fold.notnull()]
+            notnan_df['fold'] = notnan_df.fold.astype('object')
+            fold_df = notnan_df[notnan_df.fold == fold]
             output_path = AbstractGuesser.guess_path(directory, fold)
             fold_df.to_pickle(output_path)
 

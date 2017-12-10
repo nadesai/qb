@@ -59,8 +59,9 @@ def generate(config, folds):
         log.info('Buzzes saved to {0}.'.format(buzzes_dir))
 
         if fold == 'expo':
-            guesses_df = AbstractGuesser.load_guesses(bc.GUESSES_DIR, folds=[fold])
-            buzzer2vwexpo(guesses_df, buzzes, fold)
+            #guesses_df = AbstractGuesser.load_guesses(bc.GUESSES_DIR, folds=[fold])
+            #buzzer2vwexpo(guesses_df, buzzes, fold)
+            pass
 
 def parse_args():
     parser = argparse.ArgumentParser()

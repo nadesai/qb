@@ -7,7 +7,7 @@ class mlp():
     step_size = 1
     neg_weight = 1
     batch_norm = False
-    make_vector = 'dense_vector_0'
+    make_vector = 'dense_vector'
     model_name = 'rnn.{}.{}'.format(n_hidden, make_vector)
     ckp_dir = 'output/buzzer/{}.ckp'.format(model_name)
     model_dir = 'output/buzzer/{}.npz'.format(model_name)

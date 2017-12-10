@@ -33,7 +33,7 @@ class BuzzerModel(Task):
     def run(self):
         make_dirs(safe_path('output/buzzers/'))
         args = Namespace(config=conf['buzzer']['config'], epochs=6, load=False)
-        train_cost_sensitive(args)
+        train_cost_sensitive(config=conf['buzzer']['config'], folds=c.BUZZER_INPUT_FOLDS)
 
 
 class BuzzerBuzzes(Task):
@@ -46,19 +46,19 @@ class BuzzerBuzzes(Task):
         return [
             LocalTarget(c.EXPO_BUZZ.format(self.fold)),
             LocalTarget(c.EXPO_FINAL.format(self.fold)),
-            LocalTarget(c.VW_PREDICTIONS.format(self.fold)),
-            LocalTarget(c.VW_META.format(self.fold))
+            #LocalTarget(c.VW_PREDICTIONS.format(self.fold)),
+            #LocalTarget(c.VW_META.format(self.fold))
         ]
 
     def run(self):
         make_dirs(safe_path('output/predictions/'))
         make_dirs(safe_path('output/expo/'))
         make_dirs(safe_path('output/vw_input/'))
-        args = Namespace(fold=self.fold, config=conf['buzzer']['config'])
-        buzzer_test.generate(args)
+        #args = Namespace(fold=self.fold, config=conf['buzzer']['config'])
+        buzzer_test.generate(config=conf['buzzer']['config'], folds=c.BUZZER_GENERATION_FOLDS)
 
 
 class AllBuzzes(WrapperTask):
     def requires(self):
-        for fold in c.BUZZ_FOLDS:
-            yield BuzzerBuzzes(fold=fold)
+        #for fold in c.BUZZ_FOLDS: 
+        yield BuzzerBuzzes(fold="")
